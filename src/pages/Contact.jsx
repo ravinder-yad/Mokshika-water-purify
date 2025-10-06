@@ -540,6 +540,11 @@ const Contact = () => {
   const [isLight, setIsLight] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Scroll to top on component mount (page load/reload)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     // Check if mobile device
     const checkMobile = () => {

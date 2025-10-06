@@ -198,6 +198,11 @@ const Gallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
+  // Scroll to top on component mount (page load/reload)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     AOS.init({ duration: 900, once: true, offset: 70 });
     const checkTheme = () => {
