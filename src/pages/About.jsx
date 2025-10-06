@@ -15,7 +15,7 @@ import {
 import AOS from "aos";
 import "aos/dist/aos.css";
 import image from '../assets/Dheeraj.jpg';
-import images from '../assets/akash.jpg';
+import images from '../assets/Akash.jpg';
 
 const WHATSAPP_NUMBER = "919760076957";
 const CALL_NUMBER = "+919368885489";
