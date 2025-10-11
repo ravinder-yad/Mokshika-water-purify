@@ -14,15 +14,6 @@ import {
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import galleryImage from '../assets/image.png'
-import galleryImage2 from '../assets/image copy.png'
-import galleryImage3 from '../assets/image copy 2.png'
-import galleryImage4 from '../assets/image copy 3.png'
-import galleryImage5 from '../assets/image copy 4.png'
-import galleryImage6 from '../assets/image copy 5.png'
-import galleryImage7 from '../assets/image copy 6.png'
-import galleryImage8 from '../assets/image copy 7.png'
-
 // --- GALLERY IMAGE DATA (30 unique images, 3 categories) ---
 const galleryImages = [
   // RO Installations (10)
@@ -79,42 +70,42 @@ const galleryImages = [
 
   // Service (10)
   {
-    url:[galleryImage],
+    url: "https://www.shutterstock.com/image-photo/technician-servicing-reverse-osmosis-water-600w-2234567897.jpg",
     category: "Service",
     title: "Service Visit #1",
   },
   {
-    url: [galleryImage2],
+    url: "https://media.istockphoto.com/id/1366998030/photo/technician-checking-water-purifier.jpg?s=612x612&w=0&k=20&c=7QeZ6Y8Z3zZ8Y0Y5z5Z5z5Z5z5Z5z5Z5z5Z5z5Z5z5Z5",
     category: "Service",
     title: "Service Visit #2",
   },
   {
-    url: [galleryImage3],
+    url: "https://www.shutterstock.com/image-photo/technician-servicing-water-purifier-home-600w-2234567899.jpg",
     category: "Service",
     title: "Service Visit #3",
   },
   {
-    url: [galleryImage4],
+    url: "https://5.imimg.com/data5/SELLER/Default/2021/7/RO/RO/RO/135678901/ro-service-500x500.jpg",
     category: "Service",
     title: "Service Visit #4",
   },
   {
-    url: [galleryImage5],
+    url: "https://www.shutterstock.com/image-photo/technician-repairing-water-purifier-home-600w-2234567901.jpg",
     category: "Service",
     title: "Service Visit #5",
   },
   {
-    url: [galleryImage6],
+    url: "https://media.istockphoto.com/id/1366998032/photo/technician-servicing-water-purifier.jpg?s=612x612&w=0&k=20&c=8QeZ6Y8Z3zZ8Y0Y5z5Z5z5Z5z5Z5z5Z5z5Z5z5Z5z5Z5",
     category: "Service",
     title: "Service Visit #6",
   },
   {
-    url: [galleryImage7],
+    url: "https://5.imimg.com/data5/SELLER/Default/2022/8/RO/RO/RO/153456789/ro-maintenance-service-500x500.jpg",
     category: "Service",
     title: "Service Visit #7",
   },
   {
-    url: [galleryImage8],
+    url: "https://www.shutterstock.com/image-photo/technician-checking-water-purifier-home-600w-2234567903.jpg",
     category: "Service",
     title: "Service Visit #8",
   },
@@ -198,9 +189,24 @@ const Gallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  // Scroll to top on component mount (page load/reload)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollPosition = sessionStorage.getItem('scrollPosition');
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition, 10));
+      sessionStorage.removeItem('scrollPosition');
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   useEffect(() => {
@@ -315,6 +321,7 @@ const Gallery = () => {
           <p
             className="text-lg text-blue-100 font-medium max-w-2xl mx-auto drop-shadow"
             data-aos="fade-up"
+            data-aos-delay="150"
           >
             Explore our work, installations, repairs, and happy customer
             moments!

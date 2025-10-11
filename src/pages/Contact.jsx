@@ -515,7 +515,6 @@
 // };
 
 // export default Contact;
-
 import React, { useState, useEffect } from "react";
 import {
   FaWhatsapp,
@@ -532,76 +531,85 @@ import "aos/dist/aos.css";
 
 const WHATSAPP_NUMBER = "919760076957";
 const CALL_NUMBER = "+919368885489";
-const EMAIL = "mokshikawaterpurifyagra@gmail.com";
+const EMAIL = "mokshikawaterpurifier@gmail.com";
 
 const Contact = () => {
-  // ---- Formspree hook ---- //
   const [state, handleSubmit] = useForm("xdkwndrp");
   const [isLight, setIsLight] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Scroll to top on component mount (page load/reload)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollPosition = sessionStorage.getItem('scrollPosition');
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition, 10));
+      sessionStorage.removeItem('scrollPosition');
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   useEffect(() => {
-    // Check if mobile device
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
-    // Initialize AOS animations with mobile-friendly settings
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 50,
-      disable: window.innerWidth < 768 // Disable animations on mobile if needed
-    });
-
+  useEffect(() => {
+    AOS.init({ duration: 900, once: true, offset: 70 });
     const checkTheme = () => {
       setIsLight(document.documentElement.classList.contains("light-theme"));
     };
-    
     checkTheme();
     const obs = new MutationObserver(checkTheme);
     obs.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
-    
-    return () => {
-      obs.disconnect();
-      window.removeEventListener('resize', checkMobile);
-    };
+    return () => obs.disconnect();
   }, []);
 
-  // ---- Styling shortcuts ---- //
-  const sectionBg = isLight ? "bg-blue-50" : "bg-[#14213d]";
+  const sectionBg = isLight ? "bg-blue-50" : "bg-[#1a2740]";
   const cardBg = isLight ? "bg-white" : "bg-[#223359]";
   const cardText = isLight ? "text-gray-900" : "text-blue-100";
   const inputBg = isLight ? "bg-white" : "bg-[#223359]";
   const inputText = isLight ? "text-gray-900" : "text-blue-100";
   const buttonCls = isLight
-    ? "bg-blue-600 text-white hover:bg-blue-700"
+    ? "bg-blue-600 text-white hover:bg-blue-800"
     : "bg-blue-500 text-white hover:bg-blue-700";
-
-  // Animation classes - simplified for mobile
-  const getAnimationProps = (animation, delay = 0) => {
-    if (isMobile) {
-      return {}; // No animations on mobile
-    }
-    return {
-      "data-aos": animation,
-      "data-aos-delay": delay
-    };
-  };
 
   return (
     <div className="min-h-screen md:min-h-[70vh] flex flex-col">
+      {/* FLOATING BUTTONS */}
+      <div className="fixed z-50 right-4 bottom-6 flex flex-col items-end gap-3 md:gap-4">
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-all duration-300 bg-green-500 text-white hover:bg-green-600"
+          aria-label="WhatsApp"
+          data-aos="zoom-in"
+          data-aos-delay="600"
+        >
+          <FaWhatsapp size={22} />
+        </a>
+        <a
+          href={`tel:${CALL_NUMBER}`}
+          className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-all duration-300 ${
+            isLight
+              ? "bg-blue-500 text-white hover:bg-blue-700"
+              : "bg-blue-700 text-white hover:bg-blue-900"
+          }`}
+          aria-label="Call"
+          data-aos="zoom-in"
+          data-aos-delay="650"
+        >
+          <FaPhoneAlt size={18} />
+        </a>
+      </div>
+
       {/* HERO BANNER */}
       <section
         className={`relative w-full h-40 sm:h-48 md:h-56 lg:h-64 flex items-center justify-center overflow-hidden ${sectionBg}`}
@@ -616,17 +624,18 @@ const Contact = () => {
         <div className="relative z-10 text-center px-4 w-full max-w-5xl">
           <h1
             className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-2 drop-shadow-lg flex items-center justify-center gap-2"
-            {...getAnimationProps("fade-down", 100)}
+            data-aos="fade-down"
+            data-aos-delay="100"
           >
             <FaEnvelope className="mb-1 size-5 sm:size-6 md:size-7" />
             <span>Contact Us</span>
           </h1>
           <p
             className="text-sm sm:text-base md:text-lg text-blue-100 font-medium max-w-2xl mx-auto drop-shadow"
-            {...getAnimationProps("fade-up", 200)}
+            data-aos="fade-up"
+            data-aos-delay="200"
           >
-            Get in touch for service, queries or feedback. We are always here
-            for you!
+            Get in touch for service, queries, or feedback. We’re always here for you!
           </p>
         </div>
       </section>
@@ -637,7 +646,8 @@ const Contact = () => {
           {/* CONTACT FORM */}
           <div
             className={`p-5 sm:p-6 rounded-xl md:rounded-2xl shadow-xl ${cardBg} ${cardText}`}
-            {...getAnimationProps("fade-right", 300)}
+            data-aos="fade-right"
+            data-aos-delay="300"
           >
             <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-2">
               <FaRegCommentDots className="size-5" />
@@ -647,15 +657,16 @@ const Contact = () => {
             {state.succeeded ? (
               <p
                 className="text-green-600 font-semibold text-lg text-center py-4"
-                {...getAnimationProps("zoom-in")}
+                data-aos="zoom-in"
               >
-                ✅ Thanks for your message! We'll get back to you soon.
+                Thank you for your message! We’ll respond to you shortly.
               </p>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div
                   className="flex items-center gap-3"
-                  {...getAnimationProps("fade-up", 100)}
+                  data-aos="fade-up"
+                  data-aos-delay="100"
                 >
                   <FaUser className="size-4 flex-shrink-0" />
                   <input
@@ -672,7 +683,8 @@ const Contact = () => {
 
                 <div
                   className="flex items-center gap-3"
-                  {...getAnimationProps("fade-up", 150)}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   <FaEnvelope className="size-4 flex-shrink-0" />
                   <input
@@ -689,7 +701,8 @@ const Contact = () => {
 
                 <div
                   className="flex items-start gap-3"
-                  {...getAnimationProps("fade-up", 200)}
+                  data-aos="fade-up"
+                  data-aos-delay="200"
                 >
                   <FaRegCommentDots className="mt-3 size-4 flex-shrink-0" />
                   <textarea
@@ -708,7 +721,8 @@ const Contact = () => {
                   className={`mt-2 px-6 py-3 rounded-full font-bold text-lg shadow ${buttonCls} flex items-center gap-2 justify-center w-full sm:w-auto`}
                   disabled={state.submitting}
                   aria-label="Send Message"
-                  {...getAnimationProps("zoom-in", 250)}
+                  data-aos="zoom-in"
+                  data-aos-delay="250"
                 >
                   <FaPaperPlane
                     className={state.submitting ? "animate-pulse size-5" : "size-5"}
@@ -723,7 +737,8 @@ const Contact = () => {
           <div className="flex flex-col gap-6">
             <div
               className={`p-5 sm:p-6 rounded-xl md:rounded-2xl shadow-xl ${cardBg} ${cardText}`}
-              {...getAnimationProps("fade-left", 400)}
+              data-aos="fade-left"
+              data-aos-delay="400"
             >
               <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-2">
                 <FaMapMarkerAlt className="size-5" />
@@ -732,7 +747,8 @@ const Contact = () => {
               <div className="flex flex-col gap-3 text-base font-medium">
                 <div
                   className="flex items-start gap-3"
-                  {...getAnimationProps("fade-up", 100)}
+                  data-aos="fade-up"
+                  data-aos-delay="100"
                 >
                   <FaMapMarkerAlt className="text-blue-400 mt-1 size-5 flex-shrink-0" />
                   <span className="break-words">
@@ -742,7 +758,8 @@ const Contact = () => {
                 </div>
                 <div
                   className="flex items-center gap-3"
-                  {...getAnimationProps("fade-up", 150)}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   <FaPhoneAlt className="text-blue-400 size-5 flex-shrink-0" />
                   <a href={`tel:${CALL_NUMBER}`} className="hover:underline text-blue-500 break-all">
@@ -751,7 +768,8 @@ const Contact = () => {
                 </div>
                 <div
                   className="flex items-center gap-3"
-                  {...getAnimationProps("fade-up", 200)}
+                  data-aos="fade-up"
+                  data-aos-delay="200"
                 >
                   <FaEnvelope className="text-blue-400 size-5 flex-shrink-0" />
                   <a
@@ -763,7 +781,8 @@ const Contact = () => {
                 </div>
                 <div
                   className="flex items-center gap-3"
-                  {...getAnimationProps("fade-up", 250)}
+                  data-aos="fade-up"
+                  data-aos-delay="250"
                 >
                   <FaWhatsapp className="text-green-500 size-5 flex-shrink-0" />
                   <a
@@ -780,7 +799,8 @@ const Contact = () => {
 
             <div
               className="rounded-xl md:rounded-2xl overflow-hidden shadow-xl h-64 sm:h-72 md:h-80 w-full"
-              {...getAnimationProps("zoom-in", 500)}
+              data-aos="zoom-in"
+              data-aos-delay="500"
             >
               <iframe
                 title="Google Map"
@@ -795,32 +815,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-
-      {/* FLOATING BUTTONS */}
-      <div className="fixed z-50 right-4 bottom-6 flex flex-col items-end gap-3 md:gap-4">
-        <a
-          href={`https://wa.me/${WHATSAPP_NUMBER}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-lg hover:scale-110 transition-all duration-300 bg-green-500 text-white hover:bg-green-600"
-          aria-label="WhatsApp"
-          {...getAnimationProps("zoom-in", 600)}
-        >
-          <FaWhatsapp size={18} className="sm:size-5" />
-        </a>
-        <a
-          href={`tel:${CALL_NUMBER}`}
-          className={`flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-lg hover:scale-110 transition-all duration-300 ${
-            isLight
-              ? "bg-blue-500 text-white hover:bg-blue-700"
-              : "bg-blue-700 text-white hover:bg-blue-900"
-          }`}
-          aria-label="Call"
-          {...getAnimationProps("zoom-in", 650)}
-        >
-          <FaPhoneAlt size={16} className="sm:size-4" />
-        </a>
-      </div>
     </div>
   );
 };
