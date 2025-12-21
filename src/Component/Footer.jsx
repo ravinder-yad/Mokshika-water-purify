@@ -156,17 +156,14 @@ const Footer = () => {
     return () => observer.disconnect();
   }, []);
 
-  const footerClasses = `py-12 transition-all duration-300 ${
-    isLight ? 'bg-gray-100 text-gray-800' : 'bg-gray-900 text-gray-200'
-  }`;
+  const footerClasses = `py-12 transition-all duration-300 ${isLight ? 'bg-gray-100 text-gray-800' : 'bg-gray-900 text-gray-200'
+    }`;
 
-  const linkClasses = `transition-all duration-300 hover:opacity-80 text-sm ${
-    isLight ? 'text-gray-600 hover:text-blue-700' : 'text-gray-400 hover:text-white'
-  }`;
+  const linkClasses = `transition-all duration-300 hover:opacity-80 text-sm ${isLight ? 'text-gray-600 hover:text-blue-700' : 'text-gray-400 hover:text-white'
+    }`;
 
-  const iconClasses = `text-2xl transition-all duration-300 ${
-    isLight ? 'text-gray-600 hover:text-blue-700' : 'text-gray-400 hover:text-white'
-  }`;
+  const iconClasses = `text-2xl transition-all duration-300 ${isLight ? 'text-gray-600 hover:text-blue-700' : 'text-gray-400 hover:text-white'
+    }`;
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -216,6 +213,7 @@ const Footer = () => {
               <Link to="/" className={linkClasses}>Home</Link>
               <Link to="/about" className={linkClasses}>About Us</Link>
               <Link to="/gallery" className={linkClasses}>Our Gallery</Link>
+              <Link to="/blog" className={linkClasses}>Blog</Link>
               <Link to="/contact" className={linkClasses}>Contact</Link>
             </div>
           </div>
@@ -251,9 +249,8 @@ const Footer = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`px-3 py-2 rounded-l-lg text-sm w-full focus:outline-none border ${
-                    isLight ? 'bg-white text-gray-800 border-gray-300' : 'bg-gray-800 text-white border-gray-700'
-                  }`}
+                  className={`px-3 py-2 rounded-l-lg text-sm w-full focus:outline-none border ${isLight ? 'bg-white text-gray-800 border-gray-300' : 'bg-gray-800 text-white border-gray-700'
+                    }`}
                 />
                 <button
                   type="submit"
@@ -274,7 +271,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className={`border-t mt-8 pt-6 text-center text-sm ${isLight ? 'border-gray-300' : 'border-gray-800'}`}>
           <p>
-            &copy; {new Date().getFullYear()} Mokshika Water Purify. All Rights Reserved. |  
+            &copy; {new Date().getFullYear()} Mokshika Water Purify. All Rights Reserved. |
             Designed with <span role="img" aria-label="love">❤️</span> by <span className="text-blue-500">Mokshika Water Purify</span>
           </p>
         </div>

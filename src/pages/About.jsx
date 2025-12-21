@@ -16,6 +16,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import image from '../assets/Dheeraj.jpg';
 import images from '../assets/Akash.jpg';
+import { Helmet } from "react-helmet-async";
 
 const WHATSAPP_NUMBER = "919760076957";
 const CALL_NUMBER = "+919368885489";
@@ -162,18 +163,27 @@ const About = () => {
         </a>
       </div>
 
+      <Helmet>
+        <title>Mokshika Water Purifier – Providing Pure & Healthy Water Since 2018</title>
+        <meta
+          name="description"
+          content="About Mokshika Water Purifier – Trusted RO and UV water purification experts. Leading provider of safe drinking water solutions in Agra."
+        />
+        <link rel="canonical" href="https://www.mokshikawaterpurifier.co.in/about" />
+      </Helmet>
+
       {/* HERO SECTION */}
       <section className={`relative w-full h-[350px] md:h-[400px] flex items-center justify-center overflow-hidden ${sectionBg}`}>
         <img
           src="https://h2oglobalnews.com/wp-content/uploads/2023/08/water-types-scaled.webp"
-          alt="About Hero"
+          alt="Mokshika Water Purifier Team and Office"
           className="absolute w-full h-full object-cover object-center brightness-75"
           draggable={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg" data-aos="fade-down">
-            About Mokshika Water Purify
+            About Mokshika Water Purifier – Trusted Water Solutions
           </h1>
           <p className="text-xl text-blue-100 font-medium max-w-2xl mx-auto drop-shadow" data-aos="fade-up" data-aos-delay="150">
             Providing pure, healthy, and great-tasting water for every home and office since 2017.

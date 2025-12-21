@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLight, setIsLight] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme ? savedTheme === "light" : false; 
+    return savedTheme ? savedTheme === "light" : false;
   });
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -16,7 +16,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -68,13 +68,13 @@ const Navbar = () => {
             </span>
             <span className="relative text-blue-500 font-black">Water</span> */}
 
-            <img src={logo} alt="Logo" className="h-[79px]"  />
+            <img src={logo} alt="Logo" className="h-[79px]" />
           </NavLink>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex flex-1 justify-center items-center space-x-4">
-            {["/", "/about", "/gallery", "/contact"].map((path, i) => {
-              const names = ["Home", "About", "Gallery", "Contact"];
+            {["/", "/about", "/gallery", "/blog", "/contact"].map((path, i) => {
+              const names = ["Home", "About", "Gallery", "Blog", "Contact"];
               return (
                 <NavLink
                   key={path}
@@ -90,17 +90,16 @@ const Navbar = () => {
               );
             })}
           </div>
-          
+
           {/* Right Controls */}
           <div className="flex items-center space-x-2">
             {/* Theme Toggle Button - Always Visible */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-full transition-all duration-300 ${
-                isLight
-                  ? "bg-gray-200 text-gray-800 hover:bg-gray-300 shadow-md"
-                  : "bg-blue-600 text-yellow-300 hover:bg-blue-500 shadow-lg"
-              }`}
+              className={`p-2 rounded-full transition-all duration-300 ${isLight
+                ? "bg-gray-200 text-gray-800 hover:bg-gray-300 shadow-md"
+                : "bg-blue-600 text-yellow-300 hover:bg-blue-500 shadow-lg"
+                }`}
               aria-label="Toggle theme"
             >
               {isLight ? (
@@ -109,15 +108,14 @@ const Navbar = () => {
                 <SunIcon className="h-5 w-5 transform transition-transform duration-300 hover:scale-110" />
               )}
             </button>
-            
+
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className={`md:hidden p-2 rounded-md transition-all duration-300 ${
-                isLight
-                  ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                  : "bg-blue-600 text-white hover:bg-blue-500"
-              }`}
+              className={`md:hidden p-2 rounded-md transition-all duration-300 ${isLight
+                ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                : "bg-blue-600 text-white hover:bg-blue-500"
+                }`}
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -129,23 +127,21 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       <div
-        className={`md:hidden transition-all duration-500 ease-in-out ${
-          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        } ${isLight ? "bg-white text-gray-900" : "bg-[#16325c] text-white"}`}
+        className={`md:hidden transition-all duration-500 ease-in-out ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          } ${isLight ? "bg-white text-gray-900" : "bg-[#16325c] text-white"}`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
-          {["/", "/about", "/gallery", "/contact"].map((path, i) => {
-            const names = ["Home", "About", "Gallery", "Contact"];
+          {["/", "/about", "/gallery", "/blog", "/contact"].map((path, i) => {
+            const names = ["Home", "About", "Gallery", "Blog", "Contact"];
             return (
               <NavLink
                 key={path}
                 to={path}
                 className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 relative group ${
-                    isActive ? active : inactive
+                  `block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 relative group ${isActive ? active : inactive
                   }`
                 }
                 onClick={toggleMenu}

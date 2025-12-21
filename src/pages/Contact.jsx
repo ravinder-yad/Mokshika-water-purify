@@ -574,16 +574,16 @@ const Contact = () => {
   const sectionBg = isLight ? "bg-blue-50" : "bg-[#1a2740]";
   const cardBg = isLight ? "bg-white" : "bg-[#223359]";
   const cardText = isLight ? "text-gray-900" : "text-blue-100";
-  const inputBg = isLight ? "bg-white" : "bg-[#223359]";
-  const inputText = isLight ? "text-gray-900" : "text-blue-100";
+  const inputBg = isLight ? "bg-white border border-gray-300" : "bg-[#223359] border border-[#223359]";
+  const inputText = isLight ? "text-gray-900 placeholder-gray-500" : "text-blue-100 placeholder-blue-300";
   const buttonCls = isLight
     ? "bg-blue-600 text-white hover:bg-blue-800"
     : "bg-blue-500 text-white hover:bg-blue-700";
 
   return (
-    <div className="min-h-screen md:min-h-[70vh] flex flex-col">
+    <div className="min-h-screen md:min-h-[70vh] flex flex-col overflow-x-hidden">
       {/* FLOATING BUTTONS */}
-      <div className="fixed z-50 right-4 bottom-6 flex flex-col items-end gap-3 md:gap-4">
+      <div className="fixed z-50 right-4 bottom-20 md:bottom-6 flex flex-col items-end gap-3 md:gap-4">
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
@@ -597,11 +597,10 @@ const Contact = () => {
         </a>
         <a
           href={`tel:${CALL_NUMBER}`}
-          className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-all duration-300 ${
-            isLight
-              ? "bg-blue-500 text-white hover:bg-blue-700"
-              : "bg-blue-700 text-white hover:bg-blue-900"
-          }`}
+          className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-all duration-300 ${isLight
+            ? "bg-blue-500 text-white hover:bg-blue-700"
+            : "bg-blue-700 text-white hover:bg-blue-900"
+            }`}
           aria-label="Call"
           data-aos="zoom-in"
           data-aos-delay="650"
@@ -641,8 +640,8 @@ const Contact = () => {
       </section>
 
       {/* MAIN CONTENT */}
-      <section className={`flex flex-col md:flex-row md:items-start py-6 md:py-10 px-4 sm:px-5 md:px-8 flex-1 ${sectionBg}`}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
+      <section className={`flex flex-col md:flex-row md:items-start py-8 md:py-12 px-4 sm:px-6 md:px-12 flex-1 ${sectionBg}`}>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 w-full">
           {/* CONTACT FORM */}
           <div
             className={`p-5 sm:p-6 rounded-xl md:rounded-2xl shadow-xl ${cardBg} ${cardText}`}
@@ -756,44 +755,44 @@ const Contact = () => {
                     282001, India
                   </span>
                 </div>
-                <div
-                  className="flex items-center gap-3"
+
+                <a
+                  href={`tel:${CALL_NUMBER}`}
+                  className="group flex items-center gap-3 hover:text-blue-500 transition-colors"
                   data-aos="fade-up"
                   data-aos-delay="150"
                 >
-                  <FaPhoneAlt className="text-blue-400 size-5 flex-shrink-0" />
-                  <a href={`tel:${CALL_NUMBER}`} className="hover:underline text-blue-500 break-all">
+                  <FaPhoneAlt className="text-blue-400 size-5 flex-shrink-0 group-hover:text-blue-500" />
+                  <span className="break-all">
                     +91 9368885489
-                  </a>
-                </div>
-                <div
-                  className="flex items-center gap-3"
+                  </span>
+                </a>
+
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="group flex items-center gap-3 hover:text-blue-500 transition-colors"
                   data-aos="fade-up"
                   data-aos-delay="200"
                 >
-                  <FaEnvelope className="text-blue-400 size-5 flex-shrink-0" />
-                  <a
-                    href={`mailto:${EMAIL}`}
-                    className="hover:underline text-blue-500 break-all"
-                  >
+                  <FaEnvelope className="text-blue-400 size-5 flex-shrink-0 group-hover:text-blue-500" />
+                  <span className="break-all">
                     {EMAIL}
-                  </a>
-                </div>
-                <div
-                  className="flex items-center gap-3"
+                  </span>
+                </a>
+
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 hover:text-green-600 transition-colors"
                   data-aos="fade-up"
                   data-aos-delay="250"
                 >
-                  <FaWhatsapp className="text-green-500 size-5 flex-shrink-0" />
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline text-green-700 break-all"
-                  >
+                  <FaWhatsapp className="text-green-500 size-5 flex-shrink-0 group-hover:text-green-600" />
+                  <span className="text-green-700 group-hover:text-green-600 break-all">
                     WhatsApp Us
-                  </a>
-                </div>
+                  </span>
+                </a>
               </div>
             </div>
 

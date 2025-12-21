@@ -17,16 +17,80 @@ import {
   FaWrench,
   FaPhoneAlt,
   FaWhatsapp,
+  FaChevronDown,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Helmet } from "react-helmet-async";
+
+// FAQ DATA
+const faqs = [
+  {
+    question: "Which water purifier is best for my home?",
+    answer: "The best purifier depends on your water source (TDS level). For high TDS (borewell/groundwater), an RO+UV system is recommended. For low TDS (municipal water), a UV+UF system works well.",
+  },
+  {
+    question: "How often should I service my RO purifier?",
+    answer: "It is recommended to service your RO purifier every 3-4 months. Filters like Carbon and Sediment should be changed every 6-8 months depending on usage.",
+  },
+  {
+    question: "Do you offer installation services?",
+    answer: "Yes, Mokshika Water Purify offers expert installation services with 24x7 support. We ensure a hassle-free setup at your doorstep.",
+  },
+  {
+    question: "What is the warranty period for your products?",
+    answer: "Our products come with a standard 1-year warranty on electrical parts. We also offer extended AMC (Annual Maintenance Contract) plans.",
+  },
+  {
+    question: "Does RO removes minerals from water?",
+    answer: "Standard RO removes impurities along with some minerals, but our advanced RO+Alkaline/Mineral technology re-mineralizes the water to ensure it is healthy and tasty.",
+  },
+  {
+    question: "What is the cost of maintenance?",
+    answer: "Maintenance costs vary by model and usage. Our AMC plans start at affordable rates covering filter replacements and regular service visits.",
+  }
+];
+
+// SCHEMA MARKUP
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Mokshika Water Purify",
+  "url": "https://www.mokshikawaterpurifier.co.in",
+  "logo": "https://www.mokshikawaterpurifier.co.in/assets/logo1.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-9368885489",
+    "contactType": "customer service",
+    "areaServed": "IN",
+    "availableLanguage": ["en", "hi"]
+  },
+  "sameAs": [
+    "https://facebook.com",
+    "https://twitter.com",
+    "https://www.instagram.com/mokshikawaterpurifyagra/?hl=en"
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer
+    }
+  }))
+};
 
 // HERO SLIDER DATA
 const images = [
   {
     url: "https://t4.ftcdn.net/jpg/07/99/05/97/360_F_799059788_9agV3otEoPEj2DynLK0SBju16TFOS3DP.jpg",
-    heading: "Drink Pure, Live Pure",
+    heading: "Pure & Safe Drinking Water with Advanced RO Systems",
     text: "Experience premium Mokshika Water Purify for your family’s health and happiness. Trusted by thousands for purity and taste.",
     btn: "View Products",
     btnLink: "/gallery",
@@ -264,6 +328,17 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Pure, Safe & Healthy Drinking Water | Best RO Purifiers – Mokshika</title>
+        <meta
+          name="description"
+          content="Mokshika Water Purify – Reliable RO & UV systems for pure, safe drinking water. Expert installation and service in Agra."
+        />
+        <link rel="canonical" href="https://www.mokshikawaterpurifier.co.in/" />
+        <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
+
       {/* FLOATING BUTTONS */}
       <div className="fixed z-50 right-4 bottom-6 flex flex-col items-end gap-3 md:gap-4">
         <a
@@ -314,7 +389,11 @@ const Home = () => {
               `}
             ></div>
             <div className="absolute z-20 max-w-2xl left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4" data-aos="fade-up">
-              <h1 className={headingClass}>{img.heading}</h1>
+              {idx === 0 ? (
+                <h1 className={headingClass}>{img.heading}</h1>
+              ) : (
+                <h2 className={headingClass}>{img.heading}</h2>
+              )}
               <p className={textClass}>{img.text}</p>
               <button
                 className={buttonClass}
@@ -357,6 +436,15 @@ const Home = () => {
               aria-label={`Go to slide ${idx + 1}`}
             ></button>
           ))}
+        </div>
+
+        {/* USP BANNER (Fixed text as requested) */}
+        <div className="absolute bottom-0 left-0 w-full bg-blue-900/80 text-white py-3 z-30 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-between items-center text-xs md:text-sm font-semibold gap-2">
+            <span className="flex items-center gap-1"><FaCheckCircle className="text-green-400" /> Trusted RO, UV & UF Systems</span>
+            <span className="flex items-center gap-1"><FaTools className="text-yellow-400" /> Fast Service</span>
+            <span className="flex items-center gap-1"><FaStar className="text-yellow-400" /> Affordable Solutions</span>
+          </div>
         </div>
       </section>
 
@@ -496,6 +584,33 @@ const Home = () => {
                   {blog.link === "/free-water-testing" && "Book Free Test"}
                 </button>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section className={`py-14 px-4 ${isLight ? "bg-white" : "bg-gray-800"}`}>
+        <div className="max-w-4xl mx-auto">
+          <h2 className={`${sectionTitle} text-center`} data-aos="fade-up">Frequently Asked Questions</h2>
+          <div className="mt-8 flex flex-col gap-4">
+            {faqs.map((faq, idx) => (
+              <details
+                key={idx}
+                className={`group p-4 rounded-xl border ${isLight ? "border-gray-200 bg-gray-50" : "border-gray-700 bg-gray-900"} open:ring-1 open:ring-blue-500 cursor-pointer transition-all`}
+                data-aos="fade-up"
+                data-aos-delay={idx * 50}
+              >
+                <summary className={`font-semibold text-lg list-none flex justify-between items-center ${isLight ? "text-gray-800" : "text-gray-200"}`}>
+                  {faq.question}
+                  <span className="transition-transform group-open:rotate-180">
+                    <FaChevronDown />
+                  </span>
+                </summary>
+                <p className={`mt-3 text-sm md:text-base leading-relaxed ${isLight ? "text-gray-600" : "text-gray-400"}`}>
+                  {faq.answer}
+                </p>
+              </details>
             ))}
           </div>
         </div>

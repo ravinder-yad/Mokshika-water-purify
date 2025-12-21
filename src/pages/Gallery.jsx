@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Helmet } from "react-helmet-async";
 
 // --- GALLERY IMAGE DATA (30 unique images, 3 categories) ---
 const galleryImages = [
@@ -300,13 +301,22 @@ const Gallery = () => {
         </a>
       </div>
 
+      <Helmet>
+        <title>Explore Our RO Water Purifier Installations – Mokshika Gallery</title>
+        <meta
+          name="description"
+          content="Explore Mokshika Water Purifier Gallery – see our RO, UV, and UF systems in action and discover how we deliver clean, safe drinking water solutions for homes and businesses."
+        />
+        <link rel="canonical" href="https://www.mokshikawaterpurifier.co.in/gallery" />
+      </Helmet>
+
       {/* HERO */}
       <section
         className={`relative w-full h-[260px] flex items-center justify-center overflow-hidden ${sectionBg}`}
       >
         <img
           src="https://images.pexels.com/photos/45229/drop-of-water-inject-water-drip-45229.jpeg?cs=srgb&dl=pexels-pixabay-45229.jpg&fm=jpg"
-          alt="Gallery Hero"
+          alt="Mokshika Water Purifier Gallery Showcase"
           className="absolute w-full h-full object-cover object-center brightness-75"
           draggable={false}
         />
@@ -316,7 +326,7 @@ const Gallery = () => {
             className="text-4xl md:text-5xl font-extrabold text-white mb-2 drop-shadow-lg flex items-center justify-center gap-2"
             data-aos="fade-down"
           >
-            <FaCameraRetro className="mb-1" /> Gallery
+            <FaCameraRetro className="mb-1" /> Explore Our RO & UV Water Purifier Installations
           </h1>
           <p
             className="text-lg text-blue-100 font-medium max-w-2xl mx-auto drop-shadow"

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import Blog from "./pages/Blog";
 
 import RoInstallation from "./pages/ROInstallation";
 import WaterPurification from "./pages/WaterPurification";
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
 
             <Route path="/ro-installation" element={<RoInstallation />} />
             <Route path="/water-purification" element={<WaterPurification />} />
